@@ -1,0 +1,51 @@
+﻿@page "/ProductoAdd"
+@using Data.Model
+@using Data.Services
+
+@inject IFacProductoService FacProductoService
+@inject NavigationManager NavigationManager
+
+    <h1>Adicionar Productos a la Base de datos</h1>
+    <br/>
+    <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
+        <table>
+            <tr>
+                <td>Código:</td>
+                <td><input type="number" @bind="producto.ID" style="text-align:center" required /></td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td><input type="text" @bind="producto.NOMBRE" style="text-align:center" required /></td>
+            </tr>
+            <tr>
+                <td>Marca:</td>
+                <td><input type="text" @bind="producto.ID_MARCA" style="text-align:center" /></td>
+            </tr>
+            <tr>
+                <td>Color:</td>
+                <td><input type="text" @bind="producto.COLOR" style="text-align:center" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Adicionar" />
+                    <input type="button" value="Cancelar" @onclick="@Cancel" />
+                </td>
+            </tr>
+
+        </table>
+
+    </EditForm>
+
+@code {
+    FacProducto producto = new FacProducto();
+    protected async Task FacProductoInsert()
+    {
+        await FacProductoService.FacProductoInsert(producto);
+        NavigationManager.NavigateTo("/");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+}

@@ -19,15 +19,39 @@
             </tr>
             <tr>
                 <td>Marca:</td>
-                <td><input type="text" @bind="producto.ID_MARCA" style="text-align:center" /></td>
+                <td><input type="text" @bind="producto.ID_MARCA" style="text-align:center" required/></td>
             </tr>
             <tr>
                 <td>Color:</td>
-                <td><input type="text" @bind="producto.COLOR" style="text-align:center" /></td>
+                <td><input type="text" @bind="producto.COLOR" style="text-align:center" required/></td>
             </tr>
             <tr>
                 <td>Precio:</td>
-                <td><input type="text" @bind="producto.PRECIO" style="text-align:center" /></td>
+                <td><input type="number" @bind="producto.PRECIO" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>Memoria RAM:</td>
+                <td><input type="number" @bind="producto.MEM_RAM" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>Almacenamiento:</td>
+                <td><input type="number" @bind="producto.ALMACENAMIENTO" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>Foto:</td>
+                <td><input type="text" @bind="producto.FOTO" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>Descripción:</td>
+                <td><input type="text" @bind="producto.DESCRIPCION" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>ID Categoria:</td>
+                <td><input type="number" @bind="producto.ID_CATEGORIA" style="text-align:center" required/></td>
+            </tr>
+            <tr>
+                <td>Stok:</td>
+                <td><input type="number" @bind="producto.STOK" style="text-align:center" required/></td>
             </tr>
             <tr>
                 <td colspan="2">

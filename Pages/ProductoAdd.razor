@@ -8,54 +8,54 @@
     <h1>Ingreso de productos</h1>
     <br/>
     <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
-        <table>
-            <tr>
+        <table class="table">
+            @*<tr>
                 <td>Código:</td>
                 <td><input type="number" @bind="producto.ID" style="text-align:center" required /></td>
-            </tr>
+            </tr>*@
             <tr>
                 <td>Nombre:</td>
-                <td><input type="text" @bind="producto.NOMBRE" style="text-align:center" required /></td>
+                <td><input type="text" @bind="producto.NOMBRE"  /></td>
             </tr>
             <tr>
                 <td>Marca:</td>
-                <td><input type="text" @bind="producto.ID_MARCA" style="text-align:center" required/></td>
+                <td><input type="text" @bind="producto.ID_MARCA"  /></td>
             </tr>
             <tr>
                 <td>Color:</td>
-                <td><input type="text" @bind="producto.COLOR" style="text-align:center" required/></td>
+                <td><input type="text" @bind="producto.COLOR"  /></td>
             </tr>
             <tr>
                 <td>Precio:</td>
-                <td><input type="number" @bind="producto.PRECIO" style="text-align:center" required/></td>
+                <td><input type="number" @bind="producto.PRECIO"  /></td>
             </tr>
             <tr>
                 <td>Memoria RAM:</td>
-                <td><input type="number" @bind="producto.MEM_RAM" style="text-align:center" required/></td>
+                <td><input type="number" @bind="producto.MEM_RAM"  /></td>
             </tr>
             <tr>
                 <td>Almacenamiento:</td>
-                <td><input type="number" @bind="producto.ALMACENAMIENTO" style="text-align:center" required/></td>
+                <td><input type="number" @bind="producto.ALMACENAMIENTO"  /></td>
             </tr>
             <tr>
                 <td>Foto:</td>
-                <td><input type="text" @bind="producto.FOTO" style="text-align:center" required/></td>
+                <td><input type="text" @bind="producto.FOTO"  /></td>
             </tr>
             <tr>
                 <td>Descripción:</td>
-                <td><input type="text" @bind="producto.DESCRIPCION" style="text-align:center" required/></td>
+                <td><input type="text" @bind="producto.DESCRIPCION"  /></td>
             </tr>
             <tr>
                 <td>ID Categoria:</td>
-                <td><input type="number" @bind="producto.ID_CATEGORIA" style="text-align:center" required/></td>
+                <td><input type="number" @bind="producto.ID_CATEGORIA"  /></td>
             </tr>
             <tr>
                 <td>Stok:</td>
-                <td><input type="number" @bind="producto.STOK" style="text-align:center" required/></td>
+                <td><input type="number" @bind="producto.STOCK" /></td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <input type="submit" value="Adicionar" />
+                <td colspan="2" style="text-align:center">
+                    <input type="submit" value="Adicionar"/>
                     <input type="button" value="Cancelar" @onclick="@Cancel" />
                 </td>
             </tr>

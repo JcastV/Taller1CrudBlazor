@@ -31,6 +31,8 @@ namespace Taller1CrudBlazor
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IFacProductoService,FacProductoService>();
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IFavoritosService, FavoritosService>();
 
             // connection bd
             var SqlConnectionConfiguration = new SqlConnectionConfiguration(Configuration.GetConnectionString("SqlDBContext"));

@@ -1,0 +1,94 @@
+﻿@page "/Clientes"
+
+@using Data.Model
+@using Data.Services
+
+@inject IClienteService ClienteService
+@inject NavigationManager NavigationManager
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                <i></i>
+                            </div>
+                            <button type="button" class="btn btn-success">Agregar</button>
+                            <div class="media-body text-right">
+                                @if (clientes == null)
+                                {
+                                    <p><em>Cargando...</em></p>
+                                }
+                                else
+                                {
+                                    @foreach (var item2 in clientes)
+                                    {
+                                        count++;
+                                    }
+                                }
+
+                                <h3>@count</h3>
+                                <span>Nuevo cliente</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<br/>
+@if (clientes == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRES</th>
+                <th>APELLIDOS</th>
+                <th>DIRECCION</th>
+                <th>TELEFONO</th>
+                <th>CORREO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in clientes)
+            {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.NOMBRE</td>
+                <td>@item.APELLIDO</td>
+                <td>@item.DIRECCION</td>
+                <td>@item.TELEFONO</td>
+                <td>@item.EMAIL</td>
+                <td><a href="Favoritos"><i class="oi oi-heart"></i></a></td>
+                <td><a href=""><i class="oi oi-pencil"></i></a></td>
+                <td><a href=""><i class="oi oi-trash"></i></a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+    @code {
+        [Parameter]
+        public int count { get; set; } = 0;
+        private IEnumerable<Cliente> clientes;
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                clientes = await ClienteService.ListarClientes();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+    }

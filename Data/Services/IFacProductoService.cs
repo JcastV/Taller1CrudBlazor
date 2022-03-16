@@ -8,7 +8,7 @@ namespace Taller1CrudBlazor.Data.Services
     {
         //Task<IEnumerable<FacProducto>> GetProducto();
         Task<bool> FacProductoInsert(FacProducto producto);
-        //Task<bool> FacProductoUpdate(FacProducto producto);
-        //Task<bool> FacProductoDelete(int id);
+        Task<bool> FacProductoDelete(FacProducto producto);
+        Task<List<FacProducto>> ListarProductos();
     }
 }

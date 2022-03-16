@@ -4,70 +4,78 @@
 
 @inject IFacProductoService FacProductoService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime js
+<h1>Ingreso de productos</h1>
+<br />
+<EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
+    <table >
+        <tr>
+            <td>Nombre:</td>
+            <td><input type="text" @bind="producto.NOMBRE" /></td>
+        </tr>
+        <tr>
+            <td>Precio:</td>
+            <td><input type="number" @bind="producto.PRECIO" /></td>
+        </tr>
+        <tr>
+            <td>Foto:</td>
+            <td><input type="text" @bind="producto.FOTO" /></td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td><input type="text" @bind="producto.DESCRIPCION" /></td>
+        </tr>
+        <tr>
+            <td>Stock:</td>
+            <td><input type="number" @bind="producto.STOCK" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center">
+                <input type="submit" value="Adicionar" class="btn-primary"/>
+                <input type="button" value="Cancelar" @onclick="@Cancel" class="btn-secondary"/>
+            </td>
+        </tr>
 
-    <h1>Ingreso de productos</h1>
-    <br/>
-    <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
-        <table class="table">
-            @*<tr>
-                <td>Código:</td>
-                <td><input type="number" @bind="producto.ID" style="text-align:center" required /></td>
-            </tr>*@
+    </table>
+    @if (productos == null)
+    {
+        <p><em>Cargando...</em></p>
+    }
+    else
+    {
+    <table colspan="6" class="table table-striped">
+        <thead>
             <tr>
-                <td>Nombre:</td>
-                <td><input type="text" @bind="producto.NOMBRE"  /></td>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in productos)
+            {
             <tr>
-                <td>Marca:</td>
-                <td><input type="text" @bind="producto.ID_MARCA"  /></td>
+                <td>@item.ID</td>
+                <td>@item.NOMBRE</td>
+                <td>@item.DESCRIPCION</td>
+                <td>@item.PRECIO</td>
+                <td>@item.STOCK</td>
+                <td><a href=""><i class="oi oi-trash"></i></a></td>
+                <td><a href=""><i class="oi oi-pencil"></i></a></td>
             </tr>
-            <tr>
-                <td>Color:</td>
-                <td><input type="text" @bind="producto.COLOR"  /></td>
-            </tr>
-            <tr>
-                <td>Precio:</td>
-                <td><input type="number" @bind="producto.PRECIO"  /></td>
-            </tr>
-            <tr>
-                <td>Memoria RAM:</td>
-                <td><input type="number" @bind="producto.MEM_RAM"  /></td>
-            </tr>
-            <tr>
-                <td>Almacenamiento:</td>
-                <td><input type="number" @bind="producto.ALMACENAMIENTO"  /></td>
-            </tr>
-            <tr>
-                <td>Foto:</td>
-                <td><input type="text" @bind="producto.FOTO"  /></td>
-            </tr>
-            <tr>
-                <td>Descripción:</td>
-                <td><input type="text" @bind="producto.DESCRIPCION"  /></td>
-            </tr>
-            <tr>
-                <td>ID Categoria:</td>
-                <td><input type="number" @bind="producto.ID_CATEGORIA"  /></td>
-            </tr>
-            <tr>
-                <td>Stok:</td>
-                <td><input type="number" @bind="producto.STOCK" /></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:center">
-                    <input type="submit" value="Adicionar"/>
-                    <input type="button" value="Cancelar" @onclick="@Cancel" />
-                </td>
-            </tr>
-
-        </table>
-
-    </EditForm>
+            }
+        </tbody>
+    </table>
+    }
+</EditForm>
 
 @code {
     FacProducto producto = new FacProducto();
     protected async Task FacProductoInsert()
     {
+        await js.InvokeVoidAsync("confirm","¡Producto guardado correctamente!");
         await FacProductoService.FacProductoInsert(producto);
         NavigationManager.NavigateTo("/");
     }
@@ -76,4 +84,24 @@
         NavigationManager.NavigateTo("/");
     }
 
+    private IEnumerable<FacProducto> productos;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            productos = await FacProductoService.ListarProductos();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    protected async Task FacProductoDelete()
+    {
+        await js.InvokeVoidAsync("confirm", "¡Producto Eliminado correctamente!");
+        NavigationManager.NavigateTo("/ProductoAdd");
+    }
 }
+

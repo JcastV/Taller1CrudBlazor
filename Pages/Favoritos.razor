@@ -1,0 +1,67 @@
+﻿@page "/Favoritos"
+@using Data.Model
+@using Data.Services
+
+@inject IFavoritosService FavoritosService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime js
+<h3>Estos son tus productos favoritos</h3>
+<br>
+<div>
+    @if (favoritos == null)
+    {
+        <p><em>Cargando...</em></p>
+    }
+    else
+    {
+        <table colspan="6" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in favoritos)
+                {
+                    <tr>
+                        <td>@item.idFavorito</td>
+                        <td>@item.CLIENTE</td>
+                        <td>@item.PRODUCTO</td>
+                        <td>@item.PRECIO</td>
+                        <td>@item.STOCK</td>
+                        <td><a href=""><i class="oi oi-trash"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<br>
+<div>
+    <a href="Clientes" type="button" class="btn btn-primary">Volver</a>
+</div>
+<br>
+<br>
+@code {
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+    private IEnumerable<FavoritosC> favoritos;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            favoritos = await FavoritosService.ListarFavoritos();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+}

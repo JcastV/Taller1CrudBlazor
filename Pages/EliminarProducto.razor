@@ -1,0 +1,53 @@
+﻿@*@page "/EliminarProducto/{id:int}"
+@using Data.Model
+@using Data.Services
+
+@inject IFacProductoService FacProductoService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime js
+<h1>Ingreso de productos</h1>
+<br />
+<EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
+    <table>
+        <tr>
+            <td>Nombre:</td>
+            <td><input type="text" @bind="producto.NOMBRE" /></td>
+        </tr>
+        <tr>
+            <td>Precio:</td>
+            <td><input type="number" @bind="producto.PRECIO" /></td>
+        </tr>
+        <tr>
+            <td>Foto:</td>
+            <td><input type="text" @bind="producto.FOTO" /></td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td><input type="text" @bind="producto.DESCRIPCION" /></td>
+        </tr>
+        <tr>
+            <td>Stock:</td>
+            <td><input type="number" @bind="producto.STOCK" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center">
+                <input type="submit" value="Adicionar" class="btn-primary" />
+                <input type="button" value="Cancelar" @onclick="@Cancel" class="btn-secondary" />
+            </td>
+        </tr>
+
+    </table>*@
+    
+@*</EditForm>*@
+@code {
+    //FacProducto producto = new FacProducto();
+    //[Parameter]
+    //public int ID { get; set; }
+
+    //protected async Task EliminarProducto()
+    //    {
+    //    await IFacProductoService.FacProductoDelete(producto);
+    //    NavigationManager.NavigateTo("/ProductoAdd");
+    //    }
+    //protected async override Task Oninitialized();
+}

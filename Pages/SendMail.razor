@@ -1,0 +1,47 @@
+﻿@page "/SendMail"
+
+@using System.Net.Mail;
+
+<h1>Enviar correo electronico con ofertas</h1>
+
+<button @onclick="sendMail" class="btn btn-primary">Enviar correo</button>
+<br />
+
+<span> @Message</span>
+
+@code{
+    private string Message { get; set; } = "";
+
+    private void sendMail()
+    {
+        try
+        {
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("daniel.rodriguez04@usc.edu.co");
+                mail.To.Add("daniel.rodriguez06@usc.edu.co");
+                mail.Subject = "¡Hola, no dejes pasar la oportunidad y mira estas ofertas!";
+                mail.Body = "<h2>¡Aprovecha antes de que se agote!</h2> <h3>PC Gamer<h3> <p>$ 1.200.000 COP</p>";
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+
+                    smtp.Credentials = new System.Net.NetworkCredential("jhon.ovalle00@usc.edu.co", "JH0NJ41R019");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                    Message = "El correo fue enviado!";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Message = ex.Message;
+        }
+    }
+}
+
+@code {
+
+}

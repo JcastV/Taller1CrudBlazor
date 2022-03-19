@@ -1,4 +1,5 @@
 ﻿@page "/Favoritos"
+@page "/Favoritos/{id:int}"
 @using Data.Model
 @using Data.Services
 
@@ -47,6 +48,11 @@
 <br>
 <br>
 @code {
+    [Parameter]
+    public int id { get; set; }
+
+    FavoritosC favorito = new FavoritosC();
+
     void Cancel()
     {
         NavigationManager.NavigateTo("/");

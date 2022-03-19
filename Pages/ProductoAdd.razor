@@ -8,7 +8,7 @@
 <h1>Ingreso de productos</h1>
 <br />
 <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
-    <table >
+    <table class="table">
         <tr>
             <td>Nombre:</td>
             <td><input type="text" @bind="producto.NOMBRE" /></td>

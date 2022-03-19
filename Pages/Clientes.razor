@@ -6,39 +6,39 @@
 @inject IClienteService ClienteService
 @inject NavigationManager NavigationManager
 
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="media d-flex">
-                            <div class="align-self-center">
-                                <i></i>
-                            </div>
-                            <button type="button" class="btn btn-success">Agregar</button>
-                            <div class="media-body text-right">
-                                @if (clientes == null)
+<div class="row">
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex">
+                        <div class="align-self-center">
+                            <i></i>
+                        </div>
+                        <button type="button" class="btn btn-success">Agregar</button>
+                        <div class="media-body text-right">
+                            @if (clientes == null)
+                            {
+                                <p><em>Cargando...</em></p>
+                            }
+                            else
+                            {
+                                @foreach (var item2 in clientes)
                                 {
-                                    <p><em>Cargando...</em></p>
+                                    count++;
                                 }
-                                else
-                                {
-                                    @foreach (var item2 in clientes)
-                                    {
-                                        count++;
-                                    }
-                                }
+                            }
 
-                                <h3>@count</h3>
-                                <span>Nuevo cliente</span>
-                            </div>
+                            <h3>@count</h3>
+                            <span>Nuevo cliente</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<br/>
+</div>
+<br />
 @if (clientes == null)
 {
     <p><em>Cargando...</em></p>
@@ -59,36 +59,36 @@ else
         <tbody>
             @foreach (var item in clientes)
             {
-            <tr>
-                <td>@item.ID</td>
-                <td>@item.NOMBRE</td>
-                <td>@item.APELLIDO</td>
-                <td>@item.DIRECCION</td>
-                <td>@item.TELEFONO</td>
-                <td>@item.EMAIL</td>
-                <td><a href="Favoritos"><i class="oi oi-heart"></i></a></td>
-                <td><a href=""><i class="oi oi-pencil"></i></a></td>
-                <td><a href=""><i class="oi oi-trash"></i></a></td>
-            </tr>
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.NOMBRE</td>
+                    <td>@item.APELLIDO</td>
+                    <td>@item.DIRECCION</td>
+                    <td>@item.TELEFONO</td>
+                    <td>@item.EMAIL</td>
+                    <td><a href="Favoritos/@item.ID"><i class="oi oi-heart"></i></a></td>
+                    <td><a href=""><i class="oi oi-pencil"></i></a></td>
+                    <td><a href=""><i class="oi oi-trash"></i></a></td>
+                </tr>
             }
         </tbody>
     </table>
 }
 
-    @code {
-        [Parameter]
-        public int count { get; set; } = 0;
-        private IEnumerable<Cliente> clientes;
-        protected override async Task OnInitializedAsync()
+@code {
+    [Parameter]
+    public int count { get; set; } = 0;
+    private IEnumerable<Cliente> clientes;
+    protected override async Task OnInitializedAsync()
+    {
+        try
         {
-            try
-            {
-                clientes = await ClienteService.ListarClientes();
-            }
-            catch (Exception)
-            {
+            clientes = await ClienteService.ListarClientes();
+        }
+        catch (Exception)
+        {
 
-                throw;
-            }
+            throw;
         }
     }
+}

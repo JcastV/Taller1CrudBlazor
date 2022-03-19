@@ -25,10 +25,12 @@ namespace Taller1CrudBlazor.Data.Services
 
             using (var conn = new SqlConnection(_configuration.Value))
             {
+                var parameters = new DynamicParameters();
+
                 const string query = "select F.idFavorito,c.NOMBRE AS CLIENTE,p.NOMBRE AS PRODUCTO,p.PRECIO,p.STOCK " +
                     "from FacProducto p " +
                     "inner join FavoritosCliente f on f.idProducto = p.ID " +
-                    "inner join FacCliente c on c.ID = f.idCliente";
+                    "inner join FacCliente c on c.ID = f.idCliente ";
                 favoritos = (List<FavoritosC>)await conn.QueryAsync<FavoritosC>(query, commandType: CommandType.Text);
             }
             return favoritos;

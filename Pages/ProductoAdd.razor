@@ -7,6 +7,22 @@
 
     <h1>Adicionar Productos a la Base de datos</h1>
     <br/>
+<RadzenTemplateForm Data="@producto">
+    <div class="row">
+        <div class="col-10">
+            <RadzenFieldset Text="Ingreso de productos">
+                <div class="row">
+                    <div class="col-md-2 align-items-center d-flex">
+                        <RadzenLabel Text="ID" />
+                    </div>
+                    <div class="col-md-6">
+                        <RadzenNumeric Name="Id" Style="width:100%" @bind-Value="producto.ID" />
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>
     <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
         <table>
             <tr>

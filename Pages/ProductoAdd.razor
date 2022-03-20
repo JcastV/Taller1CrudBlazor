@@ -7,6 +7,9 @@
 @inject IJSRuntime js
 <h1>Ingreso de productos</h1>
 <br />
+<RadzenTemplateForm Data="@producto">
+
+</RadzenTemplateForm>
 
 <EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
     <table class="table">

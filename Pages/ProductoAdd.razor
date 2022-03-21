@@ -5,75 +5,96 @@
 @inject IFacProductoService FacProductoService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime js
-<h1>Ingreso de productos</h1>
-<br />
-<RadzenTemplateForm Data="@producto">
 
+<RadzenTemplateForm Data="@producto">
+    <div class="row">
+        <div class="col-12"> 
+                <RadzenFieldset Text="Ingreso de productos">
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex">
+                                    <RadzenLabel Text="Producto" />
+                                </div>
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenTextBox Name="Producto" Style="width:100%" @bind-Value="producto.NOMBRE" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex">
+                                    <RadzenLabel Text="Descrición" />
+                                </div>
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenTextBox Name="Descripcion" Style="width:100%" @bind-Value="producto.DESCRIPCION" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex">
+                                    <RadzenLabel Text="Imagen" />
+                                </div>
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenTextBox Name="Foto" Style="width:100%" @bind-Value="producto.FOTO" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex">
+                                    <RadzenLabel Text="Precio" />
+                                </div>
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenNumeric Name="Precio" Style="width:100%" @bind-Value="producto.PRECIO" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex">
+                                    <RadzenLabel Text="Stock" />
+                                </div>
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenNumeric Name="Stock" Style="width:100%" @bind-Value="producto.STOCK" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center d-flex" />
+                                <div class=" col-md-6 fieldSpace">
+                                    <RadzenButton Text="Agregar" ButtonStyle="ButtonStyle.Success" Click=@(args => FacProductoInsert()) />
+                                    <RadzenButton Text="Cancelar" ButtonStyle="ButtonStyle.Danger" Click=@(args => Cancel()) />
+                                </div>
+                            </div>
+                </RadzenFieldset>
+        </div>
+    </div>
 </RadzenTemplateForm>
 
-<EditForm Model="@producto" OnValidSubmit="@FacProductoInsert">
-    <table class="table">
-        <tr>
-            <td>Nombre:</td>
-            <td><input type="text" @bind="producto.NOMBRE" /></td>
-        </tr>
-        <tr>
-            <td>Precio:</td>
-            <td><input type="number" @bind="producto.PRECIO" /></td>
-        </tr>
-        <tr>
-            <td>Foto:</td>
-            <td><input type="text" @bind="producto.FOTO" /></td>
-        </tr>
-        <tr>
-            <td>Descripción:</td>
-            <td><input type="text" @bind="producto.DESCRIPCION" /></td>
-        </tr>
-        <tr>
-            <td>Stock:</td>
-            <td><input type="number" @bind="producto.STOCK" /></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align:center">
-                <input type="submit" value="Adicionar" class="btn-primary"/>
-                <input type="button" value="Cancelar" @onclick="@Cancel" class="btn-secondary"/>
-            </td>
-        </tr>
-
-    </table>
+<br />
+<h1>Productos en bodega</h1>
+<h6 style="color:grey">Listado de productos existentes...</h6>
     @if (productos == null)
     {
         <p><em>Cargando...</em></p>
     }
     else
     {
-    <table colspan="6" class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Stock</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in productos)
-            {
-            <tr>
-                <td>@item.ID</td>
-                <td>@item.NOMBRE</td>
-                <td>@item.DESCRIPCION</td>
-                <td>@item.PRECIO</td>
-                <td>@item.STOCK</td>
-                <td><a href=""><i class="oi oi-trash"></i></a></td>
-                <td><a href=""><i class="oi oi-pencil"></i></a></td>
-            </tr>
-            }
-        </tbody>
-    </table>
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true"
+                    Data="@productos" TItem="FacProducto" ColumnWidth="100px">
+
+            <Columns>
+                <RadzenGridColumn TItem="FacProducto" Property="NOMBRE" Title="Nombre" />
+                <RadzenGridColumn TItem="FacProducto" Property="DESCRIPCION" Title="Descripción" />
+                <RadzenGridColumn TItem="FacProducto" Property="FOTO" Title="Foto" />
+                <RadzenGridColumn TItem="FacProducto" Property="PRECIO" Title="Precio" Width="60px"/>
+                <RadzenGridColumn TItem="FacProducto" Property="STOCK" Title="Stock" Width="50px"/>
+                <RadzenGridColumn TItem="FacProducto" Title="Editar" Width="50px">
+                    <Template Context="data">
+                        <RadzenLink Path="/" Text="Editar"/>
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="FacProducto" Title="Eliminar" Width="60px">
+                    <Template Context="data">
+                        <RadzenLink Path="/" Text="Eliminar"/>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+
+        </RadzenGrid>
     }
-</EditForm>
 
 @code {
     FacProducto producto = new FacProducto();
@@ -81,7 +102,7 @@
     {
         await js.InvokeVoidAsync("confirm","¡Producto guardado correctamente!");
         await FacProductoService.FacProductoInsert(producto);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/ProductoAdd");
     }
     void Cancel()
     {

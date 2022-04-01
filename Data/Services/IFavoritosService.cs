@@ -5,6 +5,6 @@ namespace Taller1CrudBlazor.Data.Services
 {
     public interface IFavoritosService
     {
-        Task<List<FavoritosC>> ListarFavoritos();
+        Task<List<FavoritosC>> ListarFavoritos(int codigo);
     }
 }

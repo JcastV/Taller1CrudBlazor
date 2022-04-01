@@ -17,7 +17,7 @@ namespace Taller1CrudBlazor.Data.Services
         {
             _configuration = configuration;
         }
-        public async Task<List<FavoritosC>> ListarFavoritos()
+        public async Task<List<FavoritosC>> ListarFavoritos(int codigo)
         {
             //METODO DE LISTAR TODOS LOS PRODUCTOS FAVORITOS
             List<FavoritosC> favoritos;
@@ -25,12 +25,8 @@ namespace Taller1CrudBlazor.Data.Services
 
             using (var conn = new SqlConnection(_configuration.Value))
             {
-                var parameters = new DynamicParameters();
-
-                const string query = "select F.idFavorito,c.NOMBRE AS CLIENTE,p.NOMBRE AS PRODUCTO,p.PRECIO,p.STOCK " +
-                    "from FacProducto p " +
-                    "inner join FavoritosCliente f on f.idProducto = p.ID " +
-                    "inner join FacCliente c on c.ID = f.idCliente ";
+                string query = "SELECT f.idFavorito, c.Nombre as CLIENTE, p.Nombre as PRODUCTO, p.precio, p.stock" +
+                    " FROM FavoritosCliente f, facCliente c, FacProducto p WHERE f.idProducto = p.ID AND f.idCliente = c.ID AND c.ID = " + codigo;
                 favoritos = (List<FavoritosC>)await conn.QueryAsync<FavoritosC>(query, commandType: CommandType.Text);
             }
             return favoritos;

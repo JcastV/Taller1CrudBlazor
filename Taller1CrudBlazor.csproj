@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Dtg.Blazor.InputFile" Version="0.0.1" />
+    <PackageReference Include="itext7" Version="7.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="img\" />
+    <Folder Include="wwwroot\uploadimg\" />
   </ItemGroup>
 
 </Project>

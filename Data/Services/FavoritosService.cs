@@ -32,5 +32,6 @@ namespace Taller1CrudBlazor.Data.Services
             return favoritos;
 
         }
+        //TODO: carpeta para cargar las imagenes name uploadimg, instal fileupload
     }
 }
